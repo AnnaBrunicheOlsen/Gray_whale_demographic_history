@@ -1,0 +1,45 @@
+
+
+ls -la >> out.txt ; awk {'print $1 "        " $2"        " $3"        " $4"        " $5"        " $6"        " $7"        " $8"        " $9'} out.txt > out1.txt
+
+
+
+
+paste out.txt 112 213 EGW 
+
+wc -l
+32259162 no_pipe.vcf
+
+# get the non # part of the file 
+grep -v "#" no_pipe.vcf > data.txt
+
+# get number of columns
+cat data.txt | awk '{ print NF}' > columns
+
+# get number of lines
+wc -l data.txt > lines.txt
+
+# make a file for 112, 213 and EGW
+#112 column 10
+awk {'print $10'} data.txt > 112.txt
+cut -c-3 112.txt > 112_GT.txt
+
+#213 column 11
+awk {'print $11'} data.txt > 213.txt
+cut -c-3 213.txt > 213_GT.txt
+
+#EGW column 12
+awk {'print $12'} data.txt > EGW.txt
+cut -c-3 EGW.txt > EGW_GT.txt
+
+
+awk {'print $1 "        " $2"        " $3"        " $4"        " $5'} data.txt > data1.txt
+
+
+paste data1.txt edit2.txt PR.txt GT.txt 112_GT.txt 213_GT.txt EGW_GT.txt > data2.txt
+
+
+awk {'print $1 "        " $2"        " $3"        " $4"        " $5"        " $6"        " $7"        " $8"        " $9"        " $10"        " $11"        " $12'} data2.txt > data3.txt
+
+cat header_no_pipe data3.txt > popgenome.vcf
+
